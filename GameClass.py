@@ -32,6 +32,12 @@ class Game:
                 lost_label = self.font.render('Game Over', 1, (255, 255, 255))
                 self.window.blit(lost_label,((self.WIDTH-lost_label.get_width())/2,(self.HEIGTH-lost_label.get_height())/2))
                 pygame.display.update()
+                self.count +=1
+                if self.count == self.FPS * 3:
+                    break
+            return True
+        else:
+            return False
 
                 
                 
