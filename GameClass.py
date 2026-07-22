@@ -2,6 +2,7 @@ import pygame
 import os
 import sys
 import turtle
+from BulletClass import Bullet
 
 BULLET_IMAGE = pygame.image.load(os.path.join('img','bullet_image.png'))
 
@@ -38,6 +39,20 @@ class Game:
             return True
         else:
             return False
+
+    def reload_bullets(self, bullets):
+        self.bullets = bullets
+    
+    def draw_HUD(self):
+        offset = 0
+        lives_label = self.font.render(f'Lives: {self.lives}', 1, (255,255,255))
+        level_label = self.font.render(f'Level: {self.level}', 1, (255,255,255))
+        self.window.blit(lives_label,(10,10))
+        self.window.blit(level_label,(self.WIDTH-level_label.get_width()-10, 10))  
+        for i in range(self.bullets):
+            offset += self.bullet_img.get_width()
+            self.window.blit(self.bullet_img, (self.WIDTH-offset, self.HEIGTH-50)) 
+        
 
                 
                 
