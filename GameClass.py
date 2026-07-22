@@ -2,7 +2,7 @@ import pygame
 import os
 import sys
 import turtle
-from BulletClass import Bullet
+
 
 BULLET_IMAGE = pygame.image.load(os.path.join('img','bullet_image.png'))
 
