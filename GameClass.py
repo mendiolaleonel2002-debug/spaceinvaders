@@ -53,10 +53,16 @@ class Game:
             offset += self.bullet_img.get_width()
             self.window.blit(self.bullet_img, (self.WIDTH-offset, self.HEIGTH-50)) 
         
+    def leer_registros(self, nombre_archivo):
+        registros = []
+        try:
+            with open(nombre_archivo, 'r') as file:
+                for line in file:
+                    nombre, puntuacion = line.strip().split(",")
+                    registros.append((nombre, int(puntuacion)))
+                    print(puntuacion)
+        except FileNotFoundError:
+            print("El archivo no existe")
 
-                
-                
-
-        
-        
-        
+        registros_ordenados = sorted(registros, key= lambda x:x[1], reverse= True)[:5]
+        return registros_ordenados
