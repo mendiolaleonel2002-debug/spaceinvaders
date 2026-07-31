@@ -48,18 +48,24 @@ class PantallaNombre:
                 if event.type == pygame.KEYDOWN:
                     if self.input_active:
                         if event.key == pygame.K_RETURN:
-                            print(self.texto_input)
-                            self.texto_input = ""
+                            nombre = self.texto_input.strip() if self.texto_input.strip() else "Jugador"
+                            print("Texto ingresado:", nombre)
+                            self.escribir_en_archivo("puntajes.txt", f"{nombre},{self.puntaje}")
+                            finish_mtd()
+                            pygame.quit()
+                            return
                         elif event.key == pygame.K_BACKSPACE:
                             self.texto_input = self.texto_input[:-1]
                         else:
                             self.texto_input += event.unicode
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if boton_aceptar.collidepoint(event.pos):
-                        print("Texto ingresado:", self.texto_input)
-                        self.escribir_en_archivo("puntajes.txt", self.texto_input+","+str(self.puntaje))
+                        nombre = self.texto_input.strip() if self.texto_input.strip() else "Jugador"
+                        print("Texto ingresado:", nombre)
+                        self.escribir_en_archivo("puntajes.txt", f"{nombre},{self.puntaje}")
                         finish_mtd()
                         pygame.quit()
+                        return
 
             self.ventana.blit(self.fondo, (0, 0))
 
@@ -83,7 +89,7 @@ class PantallaNombre:
 
     
     def cargar_imagen(self, nombre_archivo):
-        ruta = "img" + nombre_archivo
+        ruta = os.path.join("img", nombre_archivo)
         return pygame.transform.scale(pygame.image.load(ruta).convert(), (self.ANCHO, self.ALTO))
 
     def escribir_en_archivo(self, nombre_archivo, contenido):
@@ -91,12 +97,11 @@ class PantallaNombre:
         ruta = os.path.join(directorio_trabajo, nombre_archivo)
 
         try:
-            if not os.path.exists(ruta):
-                with open(ruta, 'w') as archivo:
-                    archivo.write(contenido + '\n')    
+            with open(ruta, 'a') as archivo:
+                archivo.write(contenido + '\n')
 
         except PermissionError:
-            print(f"No tiene permisos para escribir en el directorio '{os.path.dirname(ruta)}")
+            print(f"No tiene permisos para escribir en el directorio '{os.path.dirname(ruta)}'")
         except Exception as e:
             print(f"Error al escribir en el archivo: {e}")
 

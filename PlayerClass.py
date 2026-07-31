@@ -6,11 +6,11 @@ from ShipClass import Ship
 from EnemyClass import Enemy
 from BulletClass import Bullet
 
-PLAYER_IMG = pygame.image.load(os.path.joni('img', 'player_img.png'))
-BULLET_IMG = pygame.image.load(os.path.joni('img', 'bullet_img.png'))
+PLAYER_IMG = pygame.image.load(os.path.join('img', 'player_image.png'))
+BULLET_IMG = pygame.image.load(os.path.join('img', 'bullet_image.png'))
 
 class Player(Ship):
-    def __init__(self, x, y, health=100, x_speed, y_speed):
+    def __init__(self, x, y, x_speed=5, y_speed=5, health=100):
         super().__init__(x, y, health)
         self.ship_img = PLAYER_IMG
         self.bullet_img = BULLET_IMG

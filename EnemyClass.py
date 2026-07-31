@@ -6,13 +6,13 @@ from ShipClass import Ship
 current_dir = os.path.dirname(__file__)
 
 #Definir las rutas completas de las imagenes
-BULLET_IMG = pygame.image.load(os.path.join('img', 'bullet_img.png'))
+BULLET_IMG = pygame.image.load(os.path.join('img', 'bullet_image.png'))
 ENEMY_BLUE_IMAGE = pygame.image.load(os.path.join(current_dir, 'img', 'enemy_blue_image.png'))
 ENEMY_GREEN_IMAGE = pygame.image.load(os.path.join(current_dir, 'img', 'enemy_green_image.png'))
 ENEMY_PURPLE_IMAGE = pygame.image.load(os.path.join(current_dir, 'img', 'enemy_purple_image.png'))
-SHOT_BLUE_IMAGE = pygame.image.load(os.path.join(current_dir, 'img', 'shot_blue_image.png'))
-SHOT_GREEN_IMAGE = pygame.image.load(os.path.join(current_dir, 'img', 'shot_green_image.png'))
-SHOT_PURPLE_IMAGE = pygame.image.load(os.path.join(current_dir, 'img', 'shot_purple_image.png'))
+SHOT_BLUE_IMAGE = pygame.image.load(os.path.join(current_dir, 'img', 'shot_blue.png'))
+SHOT_GREEN_IMAGE = pygame.image.load(os.path.join(current_dir, 'img', 'shot_green.png'))
+SHOT_PURPLE_IMAGE = pygame.image.load(os.path.join(current_dir, 'img', 'shot_purple.png'))
 
 class Enemy(Ship):
     COLOR = {
