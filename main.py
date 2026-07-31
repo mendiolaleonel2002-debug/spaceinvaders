@@ -6,6 +6,9 @@ from PlayerClass import Player
 from EnemyClass import Enemy
 from BulletClass import Bullet
 from DrawingClass import Drawing
+from MenuPrincipalClass import MenuPrincipal
+from VentanaNombre import PantallaNombre
+from MenuPuntajeClass import MenuPuntajes
 
 #Background
 BACKGROUND = pygame.image.load(os.path.join('img','background.png'))
@@ -69,8 +72,58 @@ def main():
 
                 pygame.quit()
             else:
-                menu_principal()
+                MenuPrincipal()
                 run = False
+            continue
+
+        if game.escape():
+            run = False
+            continue
+
+        if len(enemies) == 0:
+            game.level += 1
+            enemy_wave +=1
+            enemy.increase_speed()
+            player.increase_speed()
+            enemies = enemy.create(amount = enemy_wave)
+            if game.level % 3 == 0:
+                if player.max_amount_bullets < 10:
+                    player.max_amount_bullets += 1
+
+                if game.lives < 6:
+                    game.live +=1
+
+        player.move()
+        player.create_bullets()
+        game.reload_bullet(len(player.bullets))
+        player.cooldown()
+
+        for enemy in enemies:
+            enemy.move()
+            if player.hit(enemy):
+                enemies.remove(enemy)
+                player.fired_bullets.pop(0)
+                crash_sound = pygame.mixer.Sound("sounds/explosion.wav")
+                puntaje +=1
+                pygame.mixer.Sound.play(crash_sound)
+            if enemy.y + enemy.get_height() >= HEIGHT:
+                game.lives -= 1
+                enemies.remove(enemy)
+
+        draw.drawing(game, player, enemies, FPS, puntaje)
+
+def initGame():
+    main()
+
+def initPuntaje():
+    menu_puntajes = MenuPuntajes(menu_principal).ejecutar()
+
+def menu_principal():
+    menu_principal = MenuPrincipal(initGame, initPuntaje).menu_principal()
+
+menu_principal()
+            
+
 
     
 
